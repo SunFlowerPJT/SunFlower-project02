@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Home</h1>
+
+<!-- 게시글 생성 버튼  -->
+<a href="#">create</a>
+
+<!-- 전체 게시글  -->
+{% for article in articles %}
+  <p>title : <a href="#">{{ article.title }}</a></p>
+{% endfor %}
+  
+{% endblock content %}
