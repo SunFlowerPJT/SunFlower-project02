@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% comment %} 회원가입 수정 폼 {% endcomment %}
+  <form action="{% url 'accounts:update' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="정보 수정">
+  </form>
+{% endblock content %}
