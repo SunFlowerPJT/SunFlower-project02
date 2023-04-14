@@ -11,8 +11,8 @@ def index(request):
     return render(request, 'articles/index.html', context)
 
 
-def detail(request, pk):
-    article = Article.objects.get(pk=pk)
+def detail(request, article_pk):
+    article = Article.objects.get(pk=article_pk)
     context = {
         'article': article,
     }
@@ -31,3 +31,9 @@ def create(request):
         'form': form,
     }
     return render(request, 'articles/create.html', context)
+
+
+def delete(request, article_pk):
+    article = Article.objects.get(pk=article_pk)
+    article.delete()
+    return redirect('articles:index')

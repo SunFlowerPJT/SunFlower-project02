@@ -8,4 +8,8 @@
   <p>content:
     {{ article.content }}</p>
   <a href="{% url 'articles:index' %}">Home</a>
+  <form action="{% url 'articles:delete' article.pk %}" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="삭제">
+  </form>
 {% endblock content %}
