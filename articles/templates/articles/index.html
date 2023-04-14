@@ -3,7 +3,7 @@
   <h1>Home</h1>
 
   <!-- 게시글 생성 버튼 -->
-  <a href="#">create</a>
+  <a href="{% url 'articles:create' %}">create</a>
 
   <!-- 전체 게시글 -->
   {% for article in articles %}
