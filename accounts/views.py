@@ -33,12 +33,11 @@ def signup(request):
     if request.user.is_authenticated:
         return redirect('articles:index')
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
             return redirect('articles:index')
-        
     else:
         form = CustomUserCreationForm()
 
@@ -77,3 +76,9 @@ def change_password(request):
         form = PasswordChangeForm(request.user)
     context = {'form': form}
     return render(request, 'accounts/change_password.html', context)
+
+
+@login_required
+def profile(request, account_pk):
+    
+    return render(request, 'accounts/profile.html')
