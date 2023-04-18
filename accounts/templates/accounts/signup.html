@@ -1,10 +1,67 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+{% endblock head %}
 
 {% block content %}
+<div class="mainbox">
+  <div>
+    <img src={% static 'image/teamwork.png' %}>
+  </div>
   {% comment %} 회원가입 폼 {% endcomment %}
-  <form action="{% url 'accounts:signup' %}" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="회원가입">
-  </form>
+  <div class="login-container">
+    <h2> 함께 성장해요! </h2>
+    <form action="{% url 'accounts:signup' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="input-group">
+        {{ form.as_p }}
+        <div class="button-container"><button type="submit" id="update-btn">회원가입</button></div>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock content %}
+
+<div class="mainbox">
+  <div><img src="../image/teamwork.png"></div>
+  <div class="login-container">
+  <h2> 함께 성장해요! </h2>
+  <form id="update-form" method="POST">
+    <div class="input-group">
+      <label for="username"></label>
+      <input type="text" id="username" name="username" placeholder="아이디" required>
+    </div>
+    <div class="input-group">
+      <label for="email"></label>
+      <input type="email" id="email" name="email" placeholder="이메일" required>
+    </div>
+    <div class="input-group">
+      <label for="family_name"></label>
+      <input type="family_name" id="family_name" name="family_name" placeholder="성" required>
+    </div>
+    <div class="input-group">
+      <label for="given_name"></label>
+      <input type="given_name" id="given_name" name="given_name" placeholder="이름" required>
+    </div>
+    <div class="input-group">
+      <label for="birthdate"></label>
+      <input type="date" id="birthdate" name="birthdate" placeholder="생년월일" required>
+    </div>
+    <div class="input-group">
+      <label for="password"></label>
+      <input type="password" id="password" name="password" placeholder="비밀번호" required>
+    </div>
+    <div class="input-group">
+      <label for="confirm-password"></label>
+      <input type="password" id="confirm-password" name="confirm-password" placeholder="비밀번호 확인" required>
+    </div>
+    <div class="input-group">
+      <label for="profile-image"></label>
+      <input type="file" id="profile-image" name="profile-image" accept="image/*">
+    </div>
+    <div class="button-container"><button type="submit" id="update-btn">회원가입</button></div>
+  </form>
+  </div>
+</div>
