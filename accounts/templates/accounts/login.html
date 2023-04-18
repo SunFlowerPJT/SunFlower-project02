@@ -1,10 +1,29 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<script src="script.js" defer></script>
+{% endblock head %}
 
 {% block content %}
-  {% comment %} 로그인 폼 {% endcomment %}
-  <form action="{% url 'accounts:login' %}" method="POST">
+<div class="login-container">
+  <div class="prof_sun"></div>
+  <h2> 어서오세요! </h2>
+  <form action="{% url 'accounts:login' %}" method="POST" id="login-form">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="로그인">
+    <div class="input-group">
+      <label for="{{ form.username.auto_id }}"></label><span class="material-symbols-outlined icon">person</span>
+      {{ form.username }}
+    </div>
+    <div class="input-group">
+      <label for="{{ form.password.auto_id }}"></label><span class="material-symbols-outlined icon">lock</span>
+      {{ form.password }}
+    </div>
+    <div class="button-container">
+      <button type="submit">로그인</button>
+    </div>
   </form>
+</div>
 {% endblock content %}
