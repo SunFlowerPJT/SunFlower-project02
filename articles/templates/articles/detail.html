@@ -13,4 +13,23 @@
   <input type="submit" value="삭제">
   </form>
   <a href="{% url 'articles:update' article.pk %}">수정하기</a>
+
+  <form action="{% url 'articles:comments_create' article.pk %}" method="POST">
+    {% csrf_token %}
+    {{ comment_form }}
+    <input type="submit" value="댓글 등록">
+  </form>
+
+  {{ comments|length }}
+
+  {% for comment in comments %}
+    <li>{{ comment.content }}</li>
+    <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST">
+      {% csrf_token %}
+      <input type="submit" value="댓글 삭제">
+    </form>
+  {% empty %}
+    <p>comments is empty</p>
+  {% endfor %}
+
 {% endblock content %}
