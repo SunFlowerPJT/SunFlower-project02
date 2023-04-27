@@ -4,6 +4,8 @@ from .forms import CustomUserCreationForm, CustomUserChangeForm, CustomAuthentic
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth import get_user_model
+from django.http import JsonResponse
 
 # Create your views here.
 def login(request):
@@ -78,7 +80,31 @@ def change_password(request):
     return render(request, 'accounts/change_password.html', context)
 
 
+def profile(request, username):
+    User = get_user_model()
+    person = User.objects.get(username=username)
+    context = {
+        'person': person,
+    }
+    return render(request, 'accounts/profile.html', context)
+
+
 @login_required
-def profile(request, account_pk):
-    
-    return render(request, 'accounts/profile.html')
+def follow(request, user_pk):
+    User = get_user_model()
+    you = User.objects.get(pk=user_pk)
+    me = request.user
+    if you != me:
+        if me in you.followers.all():
+            you.followers.remove(me)
+            is_followed = False
+        else:
+            you.followers.add(me)
+            is_followed = True
+        context = {
+            'is_followed': is_followed,
+            'followings_count': you.followings.count(),
+            'followers_count': you.followers.count(),
+        }
+        return JsonResponse(context)
+    return redirect('accounts:profile', you.username)

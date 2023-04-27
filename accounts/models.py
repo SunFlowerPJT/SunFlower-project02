@@ -6,3 +6,4 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     birthday = models.DateField(null = True, blank=True)
     image = models.ImageField(null = True, blank=True)
+    followings = models.ManyToManyField('self', related_name='followers', symmetrical=False)
